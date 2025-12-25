@@ -39,7 +39,7 @@ export function MessageInput({
 
   return (
     <form onSubmit={handleSubmit} className="w-full px-2">
-      <div className="w-full bg-[#EEEEEE] rounded-tl-[12px] rounded-tr-[12px] rounded-br-[20px] rounded-bl-[20px] pt-3 pr-1 pb-1 pl-1 flex flex-col gap-3">
+      <div className="w-full bg-[#EEEEEE] md:bg-transparent rounded-tl-[12px] rounded-tr-[12px] rounded-br-[20px] rounded-bl-[20px] md:rounded-none pt-3 pr-1 pb-1 pl-1 md:p-0 flex flex-col gap-3 md:gap-0">
         {showPrivacy && (
           <div className="flex items-center justify-between px-2 md:hidden">
             <p className="text-xs text-gray-500">
