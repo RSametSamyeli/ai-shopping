@@ -26,7 +26,7 @@ const badgeVariantMap: Record<ConversationBadgeVariant, 'success' | 'default' | 
 
 function ConversationAvatar() {
   return (
-    <Avatar className="h-12 w-12 border-2 border-black">
+    <Avatar className="h-10 w-10 border-2 border-black">
       <AvatarFallback className="bg-white">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
@@ -45,25 +45,25 @@ function ConversationItem({ conversation, onClick }: ConversationItemProps) {
   return (
     <Card
       className={cn(
-        'relative cursor-pointer rounded-none border-0 border-b border-border-light py-4 shadow-none transition-colors hover:bg-gray-50',
-        conversation.isSelected && 'before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-[#22C55E]'
+        'relative cursor-pointer rounded-none border-0 border-b border-[#E5E5E5] p-3 gap-0 shadow-none bg-[#F9F9F9] transition-colors hover:bg-gray-100',
+        conversation.isSelected && 'before:absolute before:left-0 before:top-0 before:h-full before:w-0.5 before:bg-[#3661A6]'
       )}
       onClick={() => onClick?.(conversation.id)}
     >
-      <CardContent className="flex gap-3 p-0 px-4">
+      <CardContent className="flex gap-4 p-0">
         <ConversationAvatar />
         <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between gap-2">
-            <h3 className="font-semibold text-base leading-tight">{conversation.title}</h3>
-            <span className="text-[10px] text-muted-foreground whitespace-nowrap">{conversation.time}</span>
+          <div className="flex items-center justify-between gap-2">
+            <h3 className="font-medium text-base leading-6">{conversation.title}</h3>
+            <span className="text-[10px] leading-[14px] font-normal text-muted-foreground whitespace-nowrap uppercase">{conversation.time}</span>
           </div>
-          <p className="text-sm text-muted-foreground mt-0.5">{conversation.subtitle}</p>
+          <p className="text-xs leading-4 font-light text-muted-foreground mt-1">{conversation.subtitle}</p>
           <div className="flex items-center justify-between mt-2">
-            <Badge variant={badgeVariantMap[conversation.badgeVariant]}>
+            <Badge variant={badgeVariantMap[conversation.badgeVariant]} className="text-xs leading-4 font-normal">
               {conversation.badgeLabel}
             </Badge>
             {conversation.price && (
-              <span className="font-semibold text-base">{conversation.price}</span>
+              <span className="font-semibold text-sm leading-5 text-right">{conversation.price}</span>
             )}
           </div>
         </div>
@@ -83,8 +83,8 @@ function ConversationSection({ title, conversations, onItemClick }: Conversation
 
   return (
     <section>
-      <div className="px-4 py-2 bg-muted">
-        <span className="text-xs font-medium text-muted-foreground">{title}</span>
+      <div className="flex items-center px-3 py-1.5 bg-[#F0F0F0] backdrop-blur-[8px]">
+        <span className="text-xs font-normal leading-none text-muted-foreground">{title}</span>
       </div>
       {conversations.map((conversation) => (
         <ConversationItem
@@ -127,26 +127,26 @@ export function ConversationList({
 
   return (
     <div className="flex h-full flex-col bg-background">
-      <div className="p-4 space-y-4">
-        <h2 className="text-sm font-semibold tracking-wide">{CONTENT.conversations.title}</h2>
+      <div className="p-4">
+        <h2 className="text-xs font-normal leading-4 uppercase">{CONTENT.conversations.title}</h2>
 
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <div className="relative mt-2">
+          <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="text"
             placeholder={CONTENT.conversations.searchPlaceholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9 bg-muted border-0"
+            className="pl-7 pr-2 py-2.5 h-9 bg-[#EEEEEE] border border-[#E7E7E7] rounded-none text-xs leading-4 placeholder:text-xs placeholder:leading-4"
           />
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 mt-3">
           <Button
             variant={activeFilter === 'all' ? 'default' : 'secondary'}
             size="sm"
             onClick={() => setActiveFilter('all')}
-            className="rounded-full text-xs h-8"
+            className="rounded-full text-[10px] leading-3 font-normal h-8"
           >
             {CONTENT.conversations.filters.all}
           </Button>
@@ -154,7 +154,7 @@ export function ConversationList({
             variant={activeFilter === 'active' ? 'default' : 'secondary'}
             size="sm"
             onClick={() => setActiveFilter('active')}
-            className="rounded-full text-xs h-8"
+            className="rounded-full text-[10px] leading-3 font-normal h-8"
           >
             {CONTENT.conversations.filters.active} ({filterCounts.active})
           </Button>
@@ -162,7 +162,7 @@ export function ConversationList({
             variant={activeFilter === 'completed' ? 'default' : 'secondary'}
             size="sm"
             onClick={() => setActiveFilter('completed')}
-            className="rounded-full text-xs h-8"
+            className="rounded-full text-[10px] leading-3 font-normal h-8"
           >
             {CONTENT.conversations.filters.completed} ({filterCounts.completed})
           </Button>
@@ -189,14 +189,12 @@ export function ConversationList({
         />
       </ScrollArea>
 
-      <Separator />
-
-      <div className="p-4">
+      <div className="px-4 pt-3 pb-6">
         <Button
           onClick={onNewChat}
-          className="w-full h-12 rounded-xl text-sm font-medium"
+          className="w-full h-12 rounded-none bg-[#26282B] hover:bg-[#26282B]/90 text-white text-base leading-6 font-normal uppercase gap-2 py-2.5 px-3"
         >
-          <MessageSquare className="h-5 w-5 mr-2" />
+          <MessageSquare className="h-5 w-5" />
           {CONTENT.conversations.newChat}
         </Button>
       </div>
