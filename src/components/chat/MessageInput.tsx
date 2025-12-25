@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, Mic, Sparkles, X } from 'lucide-react';
+import { Plus, Mic, Sparkles, Send, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { CONTENT } from '@/lib/constants';
 
 interface MessageInputProps {
@@ -98,13 +99,35 @@ export function MessageInput({
               </button>
 
               <button
-                type="button"
-                onClick={onAI}
+                type={message.trim() ? 'submit' : 'button'}
+                onClick={message.trim() ? undefined : onAI}
                 disabled={disabled}
-                className="flex h-8 w-8 items-center justify-center rounded-xl bg-black hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
-                aria-label="AI assistance"
+                className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-black hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50 overflow-hidden"
+                aria-label={message.trim() ? 'Send message' : 'AI assistance'}
               >
-                <Sparkles className="h-5 w-5 text-amber-400" />
+                <AnimatePresence mode="wait" initial={false}>
+                  {message.trim() ? (
+                    <motion.div
+                      key="send"
+                      initial={{ scale: 0, rotate: -90 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      exit={{ scale: 0, rotate: 90 }}
+                      transition={{ duration: 0.2, ease: 'easeOut' }}
+                    >
+                      <Send className="h-5 w-5 text-white" />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="sparkles"
+                      initial={{ scale: 0, rotate: 90 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      exit={{ scale: 0, rotate: -90 }}
+                      transition={{ duration: 0.2, ease: 'easeOut' }}
+                    >
+                      <Sparkles className="h-5 w-5 text-amber-400" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </button>
             </div>
           </div>
