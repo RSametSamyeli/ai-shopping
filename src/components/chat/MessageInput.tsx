@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, Mic, Sparkles } from 'lucide-react';
+import { Plus, Mic, Sparkles, X } from 'lucide-react';
 import { CONTENT } from '@/lib/constants';
 
 interface MessageInputProps {
@@ -20,6 +20,7 @@ export function MessageInput({
   disabled = false,
 }: MessageInputProps) {
   const [message, setMessage] = useState('');
+  const [showPrivacy, setShowPrivacy] = useState(true);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,7 +39,23 @@ export function MessageInput({
 
   return (
     <form onSubmit={handleSubmit} className="w-full px-2">
-      <div className="w-full rounded-t-[12px] rounded-b-[20px] pt-3 pr-1 pb-1 pl-1">
+      <div className="w-full bg-[#EEEEEE] rounded-tl-[12px] rounded-tr-[12px] rounded-br-[20px] rounded-bl-[20px] pt-3 pr-1 pb-1 pl-1 flex flex-col gap-3">
+        {showPrivacy && (
+          <div className="flex items-center justify-between px-2 md:hidden">
+            <p className="text-xs text-gray-500">
+              BY CHATTING, YOU AGREE TO THE{' '}
+              <a href="#" className="underline">PRIVACY POLICY</a>
+            </p>
+            <button
+              type="button"
+              onClick={() => setShowPrivacy(false)}
+              className="p-1"
+              aria-label="Dismiss"
+            >
+              <X className="h-4 w-4 text-gray-500" />
+            </button>
+          </div>
+        )}
         <div
           className="w-full rounded-[16px] border border-border-light bg-white/[0.88] p-3 flex flex-col gap-4"
           style={{
