@@ -96,7 +96,7 @@ export function NewChatView() {
 
   return (
     <div className="flex-1 flex flex-col justify-end pb-4">
-      <div className="w-full max-w-[640px] mx-auto px-4">
+      <div className="w-full max-w-[640px] mx-auto px-4 md:px-0">
         <AnimatePresence mode="wait">
           {isTyping ? (
             <motion.div

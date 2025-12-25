@@ -1,8 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import { History, Heart, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { CONTENT } from '@/lib/constants';
 
 interface HeaderProps {
   onToggleConversations: () => void;
@@ -34,9 +34,15 @@ export function Header({
 
       <button
         onClick={onLogoClick}
-        className="absolute left-1/2 -translate-x-1/2 text-xl font-bold tracking-tight hover:opacity-70 transition-opacity cursor-pointer"
+        className="absolute left-1/2 -translate-x-1/2 hover:opacity-70 transition-opacity cursor-pointer"
       >
-        {CONTENT.brandName}
+        <Image
+          src="/images/loops-logo.png"
+          alt="Loops"
+          width={106}
+          height={24}
+          priority
+        />
       </button>
 
       <div className="flex items-center gap-5">

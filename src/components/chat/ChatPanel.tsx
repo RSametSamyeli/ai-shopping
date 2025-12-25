@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { QuickActions } from './QuickActions';
 import { MessageInput } from './MessageInput';
 import { MessageList } from './MessageList';
@@ -42,9 +43,15 @@ function EmptyState() {
 
 function PoweredBy() {
   return (
-    <div className="flex items-center justify-center gap-1.5 font-questrial text-[10px] leading-3 py-3">
+    <div className="flex items-center justify-center gap-1 font-questrial text-[10px] leading-3 py-3">
       <span className="text-gray-500">POWERED BY</span>
-      <span className="font-semibold text-black">{CONTENT.brandName}</span>
+      <Image
+        src="/images/loops-logo.png"
+        alt="Loops"
+        width={40}
+        height={9}
+        className="object-contain"
+      />
     </div>
   );
 }
