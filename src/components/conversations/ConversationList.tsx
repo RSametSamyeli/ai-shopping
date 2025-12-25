@@ -11,12 +11,8 @@ import { Separator } from '@/components/ui/separator';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { CONTENT } from '@/lib/constants';
+import { useConversation } from '@/context/ConversationContext';
 import type { ConversationListItem, ConversationFilter, ConversationBadgeVariant } from '@/types';
-
-const filterCounts = {
-  active: 2,
-  completed: 2,
-};
 
 const badgeVariantMap: Record<ConversationBadgeVariant, 'success' | 'default' | 'muted'> = {
   success: 'success',
@@ -97,20 +93,15 @@ function ConversationSection({ title, conversations, onItemClick }: Conversation
   );
 }
 
-interface ConversationListProps {
-  initialConversations: ConversationListItem[];
-  onConversationClick?: (id: string) => void;
-  onNewChat?: () => void;
-}
-
-export function ConversationList({
-  initialConversations,
-  onConversationClick,
-  onNewChat,
-}: ConversationListProps) {
-  const conversations = initialConversations;
+export function ConversationList() {
+  const { conversations, selectConversation, startNewChat } = useConversation();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState<ConversationFilter>('all');
+
+  const filterCounts = {
+    active: conversations.filter((c) => c.badgeVariant !== 'muted').length,
+    completed: conversations.filter((c) => c.badgeVariant === 'muted').length,
+  };
 
   const filteredConversations = conversations.filter((conv) => {
     const matchesSearch = conv.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -176,24 +167,24 @@ export function ConversationList({
         <ConversationSection
           title={CONTENT.conversations.sections.today}
           conversations={todayConversations}
-          onItemClick={onConversationClick}
+          onItemClick={selectConversation}
         />
         <ConversationSection
           title={CONTENT.conversations.sections.yesterday}
           conversations={yesterdayConversations}
-          onItemClick={onConversationClick}
+          onItemClick={selectConversation}
         />
         <ConversationSection
           title={CONTENT.conversations.sections.last_week}
           conversations={lastWeekConversations}
-          onItemClick={onConversationClick}
+          onItemClick={selectConversation}
         />
       </ScrollArea>
 
       <div className="px-4 pt-3 pb-6">
         <Button
-          onClick={onNewChat}
-          className="w-full h-12 rounded-none bg-[#26282B] hover:bg-[#26282B]/90 text-white text-base leading-6 font-normal uppercase gap-2 py-2.5 px-3"
+          onClick={startNewChat}
+          className="w-full h-12 rounded-none bg-[#26282B] hover:bg-[#26282B]/90 text-white text-base leading-6 font-normal uppercase gap-2 py-2.5 px-3 cursor-pointer"
         >
           <MessageSquare className="h-5 w-5" />
           {CONTENT.conversations.newChat}

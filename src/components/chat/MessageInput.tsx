@@ -150,7 +150,7 @@ export function MessageInput({
                       exit={{ scale: 0, rotate: -90 }}
                       transition={{ duration: 0.2, ease: 'easeOut' }}
                     >
-                      <Sparkles className="h-5 w-5 text-amber-400" />
+                      <Sparkles className="h-5 w-5 text-gray-300" />
                     </motion.div>
                   )}
                 </AnimatePresence>

@@ -7,6 +7,7 @@ import { CONTENT } from '@/lib/constants';
 interface HeaderProps {
   onToggleConversations: () => void;
   onToggleCustomerPanel: () => void;
+  onLogoClick: () => void;
   isConversationsOpen: boolean;
   isCustomerPanelOpen: boolean;
 }
@@ -14,6 +15,7 @@ interface HeaderProps {
 export function Header({
   onToggleConversations,
   onToggleCustomerPanel,
+  onLogoClick,
   isConversationsOpen,
   isCustomerPanelOpen,
 }: HeaderProps) {
@@ -25,22 +27,24 @@ export function Header({
         onClick={onToggleConversations}
         aria-label="Toggle conversations"
         aria-expanded={isConversationsOpen}
-        className="h-6 w-6 p-0"
+        className="h-6 w-6 p-0 cursor-pointer"
       >
         <History className="h-6 w-6" />
       </Button>
 
-      <span className="absolute left-1/2 -translate-x-1/2 text-xl font-bold tracking-tight">
+      <button
+        onClick={onLogoClick}
+        className="absolute left-1/2 -translate-x-1/2 text-xl font-bold tracking-tight hover:opacity-70 transition-opacity cursor-pointer"
+      >
         {CONTENT.brandName}
-      </span>
+      </button>
 
       <div className="flex items-center gap-5">
         <Button
           variant="ghost"
           size="icon"
-          onClick={onToggleCustomerPanel}
           aria-label="Wishlist"
-          className="h-6 w-6 p-0"
+          className="h-6 w-6 p-0 cursor-pointer"
         >
           <Heart className="h-6 w-6" />
         </Button>
@@ -50,7 +54,7 @@ export function Header({
           onClick={onToggleCustomerPanel}
           aria-label="Shopping cart"
           aria-expanded={isCustomerPanelOpen}
-          className="h-6 w-6 p-0"
+          className="h-6 w-6 p-0 cursor-pointer"
         >
           <ShoppingBag className="h-6 w-6" />
         </Button>

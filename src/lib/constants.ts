@@ -6,6 +6,13 @@ export const CONTENT = {
   },
   placeholder: 'Type your message...',
   brandName: 'LOOPS',
+  shoppingCart: {
+    title: 'SHOPPING CART',
+    emptyState: {
+      title: 'YOUR CART IS EMPTY',
+      subtitle: 'Add products to your cart while chatting to see them here.',
+    },
+  },
   conversations: {
     title: 'MY CONVERSATIONS',
     searchPlaceholder: 'Search conversations',
@@ -21,4 +28,10 @@ export const CONTENT = {
     },
     newChat: 'START NEW CHAT',
   },
+  newChatActions: [
+    { id: 'browse', label: 'BROWSE COLLECTIONS', variant: 'primary' },
+    { id: 'business', label: 'BUSINESS CASUAL', variant: 'secondary' },
+    { id: 'everyday', label: 'EVERYDAY ESSENTIALS', variant: 'secondary' },
+    { id: 'bestsellers', label: 'EXPLORE BEST SELLERS', variant: 'secondary' },
+  ],
 } as const;

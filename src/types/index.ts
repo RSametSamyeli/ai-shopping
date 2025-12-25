@@ -9,7 +9,18 @@ export interface QuickAction {
   variant: QuickActionVariant;
 }
 
+export type MessageSender = 'user' | 'agent';
+
+export interface Message {
+  id: string;
+  content: string;
+  sender: MessageSender;
+  timestamp: string;
+}
+
 export type ConversationBadgeVariant = 'success' | 'default' | 'muted';
+export type ConversationSection = 'today' | 'yesterday' | 'last_week';
+export type ConversationFilter = 'all' | 'active' | 'completed';
 
 export interface ConversationListItem {
   id: string;
@@ -19,8 +30,35 @@ export interface ConversationListItem {
   badgeLabel: string;
   badgeVariant: ConversationBadgeVariant;
   price: string;
-  section: 'today' | 'yesterday' | 'last_week';
+  section: ConversationSection;
   isSelected?: boolean;
+  customerId: string;
+  messages: Message[];
 }
 
-export type ConversationFilter = 'all' | 'active' | 'completed';
+export interface CartItem {
+  id: string;
+  name: string;
+  variant: string;
+  price: number;
+  quantity: number;
+  image?: string;
+}
+
+export interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  avatar?: string;
+  phone?: string;
+  totalOrders: number;
+  totalSpent: number;
+  memberSince: string;
+  cart: CartItem[];
+}
+
+export interface AppState {
+  selectedConversationId: string | null;
+  conversations: ConversationListItem[];
+  customers: Customer[];
+}

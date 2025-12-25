@@ -20,15 +20,23 @@ const variantStyles = {
 interface QuickActionsProps {
   actions: QuickAction[];
   onActionClick?: (actionId: string) => void;
+  scrollable?: boolean;
 }
 
 export function QuickActions({
   actions,
   onActionClick,
+  scrollable = false,
 }: QuickActionsProps) {
   return (
     <div className="relative w-full">
-      <div className="w-full p-4 md:p-2 flex flex-nowrap md:flex-wrap items-center justify-start gap-2 overflow-x-auto md:overflow-visible [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]" role="group">
+      <div
+        className={cn(
+          'w-full p-4 md:p-2 flex flex-nowrap items-center justify-start gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]',
+          !scrollable && 'md:flex-wrap md:overflow-visible'
+        )}
+        role="group"
+      >
         {actions.map((action) => (
           <button
             key={action.id}

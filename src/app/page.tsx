@@ -1,23 +1,20 @@
-import { InboxLayout } from '@/components/layout/InboxLayout';
-import { ConversationList } from '@/components/conversations/ConversationList';
-import { ChatPanel } from '@/components/chat/ChatPanel';
-import { CustomerProfile } from '@/components/customer/CustomerProfile';
+import { InboxLayoutWrapper } from '@/components/layout/InboxLayoutWrapper';
 import { getConversations } from '@/actions/conversations';
 import { getQuickActions } from '@/actions/quick-actions';
-import { getCustomerProfile } from '@/actions/customers';
+import { getCustomers } from '@/actions/customers';
 
 export default async function Home() {
-  const [conversations, quickActions, customer] = await Promise.all([
+  const [conversations, quickActions, customers] = await Promise.all([
     getConversations(),
     getQuickActions(),
-    getCustomerProfile(),
+    getCustomers(),
   ]);
 
   return (
-    <InboxLayout
-      conversationList={<ConversationList initialConversations={conversations} />}
-      chatPanel={<ChatPanel initialQuickActions={quickActions} />}
-      customerProfile={<CustomerProfile initialCustomer={customer} />}
+    <InboxLayoutWrapper
+      initialConversations={conversations}
+      initialCustomers={customers}
+      initialQuickActions={quickActions}
     />
   );
 }

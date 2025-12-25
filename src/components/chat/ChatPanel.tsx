@@ -3,7 +3,11 @@
 import { useState } from 'react';
 import { QuickActions } from './QuickActions';
 import { MessageInput } from './MessageInput';
+import { MessageList } from './MessageList';
+import { NewChatView } from './NewChatView';
+import { MessageListSkeleton } from '@/components/ui/skeleton';
 import { CONTENT } from '@/lib/constants';
+import { useConversation } from '@/context/ConversationContext';
 import type { QuickAction } from '@/types';
 
 function toTitleCase(str: string) {
@@ -45,6 +49,12 @@ function PoweredBy() {
   );
 }
 
+const newChatQuickActions: QuickAction[] = CONTENT.newChatActions.map((action) => ({
+  id: action.id,
+  label: action.label,
+  variant: action.variant as 'primary' | 'secondary',
+}));
+
 interface ChatPanelProps {
   initialQuickActions: QuickAction[];
   onSendMessage?: (message: string) => void;
@@ -52,10 +62,14 @@ interface ChatPanelProps {
 }
 
 export function ChatPanel({ initialQuickActions, onSendMessage, onQuickAction }: ChatPanelProps) {
+  const { selectedConversation, messages, addMessage, isNewChat, isLoadingMessages } = useConversation();
   const [quickActionText, setQuickActionText] = useState('');
 
   const handleQuickAction = (actionId: string) => {
-    const action = initialQuickActions.find((a) => a.id === actionId);
+    const newChatAction = newChatQuickActions.find((a) => a.id === actionId);
+    const regularAction = initialQuickActions.find((a) => a.id === actionId);
+    const action = newChatAction || regularAction;
+
     if (action) {
       setQuickActionText(toTitleCase(action.label));
     }
@@ -64,17 +78,55 @@ export function ChatPanel({ initialQuickActions, onSendMessage, onQuickAction }:
 
   const handleSend = (message: string) => {
     setQuickActionText('');
+
+    if (selectedConversation) {
+      addMessage({
+        id: `msg_${Date.now()}`,
+        content: message,
+        sender: 'user',
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      });
+    }
+
     onSendMessage?.(message);
   };
 
+  const hasActiveConversation = selectedConversation && messages.length > 0;
+  const showEmptyState = !hasActiveConversation && !isNewChat;
+
+  const quickActionsToShow = isNewChat ? newChatQuickActions : initialQuickActions;
+  const showQuickActions = !hasActiveConversation;
+
   return (
     <div className="flex h-full flex-col">
-      <div className="flex flex-1 flex-col items-center justify-center px-4 md:px-[72px] xl:px-6">
-        <EmptyState />
-      </div>
+      {hasActiveConversation ? (
+        <div className="flex flex-1 flex-col overflow-hidden">
+          <div className="border-b border-border-light px-4 py-3">
+            <h2 className="font-medium text-base">{selectedConversation.title}</h2>
+            <p className="text-xs text-muted-foreground">{selectedConversation.subtitle}</p>
+          </div>
+          {isLoadingMessages ? (
+            <MessageListSkeleton />
+          ) : (
+            <MessageList messages={messages} className="flex-1" />
+          )}
+        </div>
+      ) : isNewChat ? (
+        <NewChatView />
+      ) : (
+        <div className="flex flex-1 flex-col items-center justify-center px-4 md:px-[72px] xl:px-6">
+          <EmptyState />
+        </div>
+      )}
 
       <div className="flex flex-col items-center w-full max-w-[640px] mx-auto">
-        <QuickActions actions={initialQuickActions} onActionClick={handleQuickAction} />
+        {showQuickActions && (
+          <QuickActions
+            actions={quickActionsToShow}
+            onActionClick={handleQuickAction}
+            scrollable={isNewChat}
+          />
+        )}
         <MessageInput
           onSend={handleSend}
           externalValue={quickActionText}

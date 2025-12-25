@@ -6,4 +6,9 @@ export {
 
 export { getQuickActions, getQuickActionById } from './quick-actions';
 
-export { getCustomerProfile, getCart, getCartTotal } from './customers';
+export {
+  getCustomers,
+  getCustomerProfile,
+  getCart,
+  getCartTotal,
+} from './customers';

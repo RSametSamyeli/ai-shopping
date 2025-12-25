@@ -10,7 +10,28 @@ export const MOCK_CONVERSATIONS: ConversationListItem[] = [
     badgeVariant: 'success',
     price: '$1,078.00',
     section: 'today',
-    isSelected: true,
+    isSelected: false,
+    customerId: 'cust_1',
+    messages: [
+      {
+        id: 'msg_1_1',
+        content: "Looking for a summer wedding outfit",
+        sender: 'user',
+        timestamp: '10:30 AM',
+      },
+      {
+        id: 'msg_1_2',
+        content: "I'd recommend our Floral Midi Dress in sage green!",
+        sender: 'agent',
+        timestamp: '10:31 AM',
+      },
+      {
+        id: 'msg_1_3',
+        content: "Love it! Added to cart.",
+        sender: 'user',
+        timestamp: '10:32 AM',
+      },
+    ],
   },
   {
     id: '2',
@@ -21,6 +42,28 @@ export const MOCK_CONVERSATIONS: ConversationListItem[] = [
     badgeVariant: 'default',
     price: '',
     section: 'today',
+    isSelected: false,
+    customerId: 'cust_2',
+    messages: [
+      {
+        id: 'msg_2_1',
+        content: "What's new in your summer collection?",
+        sender: 'user',
+        timestamp: '9:15 AM',
+      },
+      {
+        id: 'msg_2_2',
+        content: "We just launched our Summer 2024 collection! It features lightweight linens, vibrant prints, and sustainable fabrics. Our most popular items include the Ocean Breeze Maxi Dress and the Coastal Stripe Collection. Would you like me to show you the highlights?",
+        sender: 'agent',
+        timestamp: '9:16 AM',
+      },
+      {
+        id: 'msg_2_3',
+        content: "Show me the sustainable options",
+        sender: 'user',
+        timestamp: '9:18 AM',
+      },
+    ],
   },
   {
     id: '3',
@@ -31,6 +74,22 @@ export const MOCK_CONVERSATIONS: ConversationListItem[] = [
     badgeVariant: 'muted',
     price: '$890.00',
     section: 'yesterday',
+    isSelected: false,
+    customerId: 'cust_3',
+    messages: [
+      {
+        id: 'msg_3_1',
+        content: "I received my running shoes today. They're perfect!",
+        sender: 'user',
+        timestamp: 'Yesterday',
+      },
+      {
+        id: 'msg_3_2',
+        content: "That's wonderful to hear! We're so glad the shoes arrived safely and fit perfectly. Thank you for shopping with us! If you have any questions or need anything else, feel free to reach out anytime.",
+        sender: 'agent',
+        timestamp: 'Yesterday',
+      },
+    ],
   },
   {
     id: '4',
@@ -41,5 +100,33 @@ export const MOCK_CONVERSATIONS: ConversationListItem[] = [
     badgeVariant: 'muted',
     price: '$240.00',
     section: 'last_week',
+    isSelected: false,
+    customerId: 'cust_1',
+    messages: [
+      {
+        id: 'msg_4_1',
+        content: "Looking for a navy blue cashmere sweater, size M",
+        sender: 'user',
+        timestamp: '6 days ago',
+      },
+      {
+        id: 'msg_4_2',
+        content: "I found the perfect match! Our Premium Cashmere V-Neck in Navy Blue is available in size M. It's made from 100% Grade-A Mongolian cashmere. Would you like to add it to your cart?",
+        sender: 'agent',
+        timestamp: '6 days ago',
+      },
+      {
+        id: 'msg_4_3',
+        content: "Yes, please add it",
+        sender: 'user',
+        timestamp: '6 days ago',
+      },
+      {
+        id: 'msg_4_4',
+        content: "Done! The sweater has been added to your cart. Your order has been confirmed and shipped. Thank you for your purchase!",
+        sender: 'agent',
+        timestamp: '6 days ago',
+      },
+    ],
   },
 ];
