@@ -27,18 +27,24 @@ export function QuickActions({
   onActionClick,
 }: QuickActionsProps) {
   return (
-    <div className="w-full p-2 flex flex-nowrap md:flex-wrap items-center justify-start gap-2 overflow-x-auto md:overflow-visible [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]" role="group">
-      {actions.map((action) => (
-        <button
-          key={action.id}
-          type="button"
-          onClick={() => onActionClick?.(action.id)}
-          className={cn(baseStyles, variantStyles[action.variant])}
-        >
-          {action.icon}
-          {action.label}
-        </button>
-      ))}
+    <div className="relative w-full">
+      <div className="w-full p-2 flex flex-nowrap md:flex-wrap items-center justify-start gap-2 overflow-x-auto md:overflow-visible [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]" role="group">
+        {actions.map((action) => (
+          <button
+            key={action.id}
+            type="button"
+            onClick={() => onActionClick?.(action.id)}
+            className={cn(baseStyles, variantStyles[action.variant])}
+          >
+            {action.icon}
+            {action.label}
+          </button>
+        ))}
+      </div>
+      <div
+        className="absolute right-0 top-0 w-16 h-full pointer-events-none md:hidden"
+        style={{ background: 'linear-gradient(to right, transparent, white)' }}
+      />
     </div>
   );
 }
