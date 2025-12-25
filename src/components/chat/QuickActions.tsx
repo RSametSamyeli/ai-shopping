@@ -8,7 +8,7 @@ const baseStyles = cn(
   'inline-flex items-center gap-2',
   'rounded-[20px] border-[1.5px]',
   'py-2.5 px-4',
-  'font-questrial text-xs leading-4 uppercase',
+  'font-questrial text-xs leading-4 uppercase whitespace-nowrap',
   'transition-colors focus-visible:outline-none focus-visible:ring-2'
 );
 
@@ -27,7 +27,7 @@ export function QuickActions({
   onActionClick,
 }: QuickActionsProps) {
   return (
-    <div className="w-full p-2 flex flex-wrap items-center justify-start gap-2" role="group">
+    <div className="w-full p-2 flex flex-nowrap md:flex-wrap items-center justify-start gap-2 overflow-x-auto md:overflow-visible [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]" role="group">
       {actions.map((action) => (
         <button
           key={action.id}

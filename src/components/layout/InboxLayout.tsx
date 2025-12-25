@@ -37,7 +37,7 @@ export function InboxLayout({
           {conversationList}
         </aside>
 
-        <main className="flex-1">
+        <main className="flex-1 overflow-x-hidden">
           {chatPanel}
         </main>
 
