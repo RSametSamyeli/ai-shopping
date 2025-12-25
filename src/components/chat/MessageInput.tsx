@@ -68,9 +68,9 @@ export function MessageInput({
       <div className={`w-full pt-3 pr-1 pb-1 pl-1 md:p-0 flex flex-col gap-3 md:gap-0 ${showPrivacy ? 'bg-[#EEEEEE] rounded-tl-[12px] rounded-tr-[12px] rounded-br-[20px] rounded-bl-[20px] md:bg-transparent md:rounded-none' : ''}`}>
         {showPrivacy && (
           <div className="flex items-center justify-between px-2 md:hidden">
-            <p className="text-xs text-gray-500">
+            <p className="text-[10px] leading-3 text-black/48 font-normal">
               BY CHATTING, YOU AGREE TO THE{' '}
-              <a href="#" className="underline">PRIVACY POLICY</a>
+              <a href="#" className="font-medium text-black/80 underline underline-offset-0">PRIVACY POLICY</a>
             </p>
             <button
               type="button"
