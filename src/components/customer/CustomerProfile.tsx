@@ -7,6 +7,17 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Card, CardContent } from '@/components/ui/card';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 import { CheckoutModal } from '@/components/checkout/CheckoutModal';
 import { useConversation } from '@/context/ConversationContext';
 import { CONTENT } from '@/lib/constants';
@@ -72,14 +83,31 @@ function CartItemRow({ item, onQuantityChange, onRemove }: CartItemRowProps) {
             <span className="font-semibold text-sm">{formatCurrency(item.price * item.quantity)}</span>
           </div>
         </div>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8 shrink-0 text-muted-foreground hover:text-destructive"
-          onClick={() => onRemove?.(item.id)}
-        >
-          <Trash2 className="h-4 w-4" />
-        </Button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 shrink-0 text-muted-foreground hover:text-destructive"
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>{CONTENT.shoppingCart.removeDialog.title}</AlertDialogTitle>
+              <AlertDialogDescription>
+                {CONTENT.shoppingCart.removeDialog.description}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel className="cursor-pointer">{CONTENT.shoppingCart.removeDialog.cancel}</AlertDialogCancel>
+              <AlertDialogAction className="cursor-pointer" onClick={() => onRemove?.(item.id)}>
+                {CONTENT.shoppingCart.removeDialog.confirm}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </CardContent>
     </Card>
   );

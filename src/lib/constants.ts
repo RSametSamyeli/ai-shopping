@@ -12,6 +12,12 @@ export const CONTENT = {
       title: 'YOUR CART IS EMPTY',
       subtitle: 'Add products to your cart while chatting to see them here.',
     },
+    removeDialog: {
+      title: 'Remove Item',
+      description: 'Are you sure you want to remove this item from your cart?',
+      cancel: 'Cancel',
+      confirm: 'Remove',
+    },
   },
   conversations: {
     title: 'MY CONVERSATIONS',
