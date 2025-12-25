@@ -57,7 +57,7 @@ export function MessageInput({
           </div>
         )}
         <div
-          className="w-full rounded-[16px] border border-border-light bg-white/[0.88] p-3 flex flex-col gap-4"
+          className="w-full rounded-[16px] border-[1.5px] border-[#E5E5E5] bg-white/[0.88] p-3 flex flex-col gap-4"
           style={{
             boxShadow: '0 0.8px 5.32px rgba(0,0,0,0.0444), 0 2.68px 17.87px rgba(0,0,0,0.0656)',
           }}
