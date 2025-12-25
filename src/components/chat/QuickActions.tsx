@@ -42,7 +42,7 @@ export function QuickActions({
         ))}
       </div>
       <div
-        className="absolute right-0 top-0 w-16 h-full pointer-events-none md:hidden"
+        className="absolute right-0 top-0 w-16 h-16 pointer-events-none"
         style={{ background: 'linear-gradient(to right, transparent, white)' }}
       />
     </div>
