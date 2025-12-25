@@ -9,8 +9,8 @@ function EmptyState() {
   const subtitleLines = CONTENT.emptyState.subtitle.split('\n');
 
   return (
-    <div className="flex flex-col items-center gap-4 text-center">
-      <h1 className="text-[32px] font-normal leading-none">
+    <div className="flex flex-col items-center gap-2 md:gap-4 text-center">
+      <h1 className="text-[28px] md:text-[32px] font-normal leading-none">
         {titleLines.map((line, i) => (
           <span key={i}>
             {line}
@@ -18,11 +18,11 @@ function EmptyState() {
           </span>
         ))}
       </h1>
-      <p className="text-lg leading-7">
+      <p className="text-base leading-6 md:text-lg md:leading-7">
         {subtitleLines.map((line, i) => (
-          <span key={i}>
+          <span key={i} className={i > 0 ? 'hidden md:inline' : ''}>
+            {i > 0 && <br />}
             {line}
-            {i < subtitleLines.length - 1 && <br />}
           </span>
         ))}
       </p>
@@ -47,7 +47,7 @@ interface ChatPanelProps {
 export function ChatPanel({ onSendMessage, onQuickAction }: ChatPanelProps) {
   return (
     <div className="flex h-full flex-col">
-      <div className="flex flex-1 flex-col items-center justify-center px-6">
+      <div className="flex flex-1 flex-col items-center justify-center px-4 md:px-[72px] xl:px-6">
         <EmptyState />
       </div>
 
