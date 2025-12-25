@@ -38,13 +38,23 @@ interface ConversationItemProps {
 }
 
 function ConversationItem({ conversation, onClick }: ConversationItemProps) {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onClick?.(conversation.id);
+    }
+  };
+
   return (
     <Card
+      tabIndex={0}
+      role="button"
       className={cn(
-        'relative cursor-pointer rounded-none border-0 border-b border-[#E5E5E5] p-3 gap-0 shadow-none bg-[#F9F9F9] transition-colors hover:bg-gray-100',
+        'relative cursor-pointer rounded-none border-0 border-b border-[#E5E5E5] p-3 gap-0 shadow-none bg-[#F9F9F9] transition-colors hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:ring-2 focus:ring-inset focus:ring-black/20',
         conversation.isSelected && 'before:absolute before:left-0 before:top-0 before:h-full before:w-0.5 before:bg-[#3661A6]'
       )}
       onClick={() => onClick?.(conversation.id)}
+      onKeyDown={handleKeyDown}
     >
       <CardContent className="flex gap-4 p-0">
         <ConversationAvatar />
