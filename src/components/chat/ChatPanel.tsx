@@ -1,8 +1,14 @@
 'use client';
 
+import { useState } from 'react';
 import { QuickActions } from './QuickActions';
 import { MessageInput } from './MessageInput';
 import { CONTENT } from '@/lib/constants';
+import type { QuickAction } from '@/types';
+
+function toTitleCase(str: string) {
+  return str.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
+}
 
 function EmptyState() {
   const titleLines = CONTENT.emptyState.title.split('\n');
@@ -40,11 +46,27 @@ function PoweredBy() {
 }
 
 interface ChatPanelProps {
+  initialQuickActions: QuickAction[];
   onSendMessage?: (message: string) => void;
   onQuickAction?: (actionId: string) => void;
 }
 
-export function ChatPanel({ onSendMessage, onQuickAction }: ChatPanelProps) {
+export function ChatPanel({ initialQuickActions, onSendMessage, onQuickAction }: ChatPanelProps) {
+  const [quickActionText, setQuickActionText] = useState('');
+
+  const handleQuickAction = (actionId: string) => {
+    const action = initialQuickActions.find((a) => a.id === actionId);
+    if (action) {
+      setQuickActionText(toTitleCase(action.label));
+    }
+    onQuickAction?.(actionId);
+  };
+
+  const handleSend = (message: string) => {
+    setQuickActionText('');
+    onSendMessage?.(message);
+  };
+
   return (
     <div className="flex h-full flex-col">
       <div className="flex flex-1 flex-col items-center justify-center px-4 md:px-[72px] xl:px-6">
@@ -52,8 +74,12 @@ export function ChatPanel({ onSendMessage, onQuickAction }: ChatPanelProps) {
       </div>
 
       <div className="flex flex-col items-center w-full max-w-[640px] mx-auto">
-        <QuickActions onActionClick={onQuickAction} />
-        <MessageInput onSend={onSendMessage} />
+        <QuickActions actions={initialQuickActions} onActionClick={handleQuickAction} />
+        <MessageInput
+          onSend={handleSend}
+          externalValue={quickActionText}
+          onExternalValueConsumed={() => setQuickActionText('')}
+        />
         <PoweredBy />
       </div>
     </div>

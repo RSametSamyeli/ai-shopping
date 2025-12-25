@@ -1,7 +1,6 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { DEFAULT_QUICK_ACTIONS } from '@/lib/constants';
 import type { QuickAction } from '@/types';
 
 const baseStyles = cn(
@@ -9,7 +8,8 @@ const baseStyles = cn(
   'rounded-[20px] border-[1.5px]',
   'py-2.5 px-4',
   'font-questrial text-xs leading-4 uppercase whitespace-nowrap',
-  'transition-colors focus-visible:outline-none focus-visible:ring-2'
+  'transition-colors focus-visible:outline-none focus-visible:ring-2',
+  'cursor-pointer'
 );
 
 const variantStyles = {
@@ -18,12 +18,12 @@ const variantStyles = {
 } as const;
 
 interface QuickActionsProps {
-  actions?: QuickAction[];
+  actions: QuickAction[];
   onActionClick?: (actionId: string) => void;
 }
 
 export function QuickActions({
-  actions = DEFAULT_QUICK_ACTIONS,
+  actions,
   onActionClick,
 }: QuickActionsProps) {
   return (

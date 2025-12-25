@@ -10,7 +10,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { CONTENT, MOCK_CONVERSATIONS } from '@/lib/constants';
+import { CONTENT } from '@/lib/constants';
 import type { ConversationListItem, ConversationFilter, ConversationBadgeVariant } from '@/types';
 
 const filterCounts = {
@@ -98,16 +98,17 @@ function ConversationSection({ title, conversations, onItemClick }: Conversation
 }
 
 interface ConversationListProps {
-  conversations?: ConversationListItem[];
+  initialConversations: ConversationListItem[];
   onConversationClick?: (id: string) => void;
   onNewChat?: () => void;
 }
 
 export function ConversationList({
-  conversations = MOCK_CONVERSATIONS,
+  initialConversations,
   onConversationClick,
   onNewChat,
 }: ConversationListProps) {
+  const conversations = initialConversations;
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState<ConversationFilter>('all');
 

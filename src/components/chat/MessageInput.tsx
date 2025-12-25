@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Plus, Mic, Sparkles, Send, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CONTENT } from '@/lib/constants';
@@ -11,6 +11,8 @@ interface MessageInputProps {
   onVoice?: () => void;
   onAI?: () => void;
   disabled?: boolean;
+  externalValue?: string;
+  onExternalValueConsumed?: () => void;
 }
 
 export function MessageInput({
@@ -19,9 +21,32 @@ export function MessageInput({
   onVoice,
   onAI,
   disabled = false,
+  externalValue = '',
+  onExternalValueConsumed,
 }: MessageInputProps) {
   const [message, setMessage] = useState('');
   const [showPrivacy, setShowPrivacy] = useState(true);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (externalValue) {
+      setMessage('');
+      let currentIndex = 0;
+
+      const typeInterval = setInterval(() => {
+        if (currentIndex < externalValue.length) {
+          setMessage(externalValue.slice(0, currentIndex + 1));
+          currentIndex++;
+        } else {
+          clearInterval(typeInterval);
+          onExternalValueConsumed?.();
+          inputRef.current?.focus();
+        }
+      }, 50);
+
+      return () => clearInterval(typeInterval);
+    }
+  }, [externalValue]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,6 +90,7 @@ export function MessageInput({
         >
           <div className="flex items-center gap-0.5">
             <input
+              ref={inputRef}
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}

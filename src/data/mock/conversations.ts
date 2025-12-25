@@ -1,0 +1,45 @@
+import type { ConversationListItem } from '@/types';
+
+export const MOCK_CONVERSATIONS: ConversationListItem[] = [
+  {
+    id: '1',
+    title: 'Product recommendations',
+    subtitle: 'Looking for outfit suggestions',
+    time: '5 MIN AGO',
+    badgeLabel: '2 Items in cart',
+    badgeVariant: 'success',
+    price: '$1,078.00',
+    section: 'today',
+    isSelected: true,
+  },
+  {
+    id: '2',
+    title: 'Seasonal collection',
+    subtitle: 'Browsing new arrivals',
+    time: '1 H AGO',
+    badgeLabel: 'Browsing',
+    badgeVariant: 'default',
+    price: '',
+    section: 'today',
+  },
+  {
+    id: '3',
+    title: 'Running Shoes',
+    subtitle: 'Order delivered',
+    time: '5 MIN AGO',
+    badgeLabel: 'Completed',
+    badgeVariant: 'muted',
+    price: '$890.00',
+    section: 'yesterday',
+  },
+  {
+    id: '4',
+    title: 'Blue Sweater Search',
+    subtitle: 'Order Completed',
+    time: '6 DAYS AGO',
+    badgeLabel: 'Completed',
+    badgeVariant: 'muted',
+    price: '$240.00',
+    section: 'last_week',
+  },
+];
